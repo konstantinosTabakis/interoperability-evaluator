@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom"
+import Home from './pages/Home'
+import Survey from "./pages/Survey";
+import setTheme from "./util/ThemeHandler";
+import { useEffect } from "react";
+import { SurveyProvider } from "./context/SurveyContext";
+import Utilities from "./components/Utilities";
 
 function App() {
+  
+  useEffect(()=>{
+    setTheme('default')
+  },[])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <SurveyProvider>
+      <Utilities/>
+      <Router>
+        <Routes>
+          <Route path='/' exact={true} element={<Home />}></Route>
+          <Route path='/survey' exact={true} element={<Survey />}></Route>
+        </Routes>
+
+      </Router>
+
+    </SurveyProvider>
+
   );
 }
 
